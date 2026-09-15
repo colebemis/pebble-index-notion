@@ -6,6 +6,7 @@
 	"scripts": {
 		"build": "tsc",
 		"check": "tsc --noEmit",
+		"setup": "bash scripts/setup.sh",
 		"test": "tsx --test test/*.test.ts"
 	},
 	"engines": {

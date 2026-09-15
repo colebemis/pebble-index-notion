@@ -13,41 +13,37 @@ and verify that the page was created in Notion.
 ## Safety
 
 - Never print, log, commit, or paste secrets into chat.
-- Put local secrets in `.env`; it is ignored by Git.
+- Have the user enter their token only in the hidden `npm run setup` prompt.
 - Do not log transcript content.
 - Treat the Worker webhook URL as a secret.
 - Ask the user only for authorization or information you cannot retrieve.
 
-## Required configuration
+## Guided setup
 
-- `NOTION_API_TOKEN`: an internal Notion integration token.
-- `NOTION_DATABASE_ID`: the destination database ID.
-- `PEBBLE_WEBHOOK_SECRET`: optional. When set, Pebble must send it as
-  `Authorization: Bearer <secret>`.
+The default path uses one Notion personal access token with both **Notion API**
+and **Workers** capabilities. It acts as the user and does not require manually
+connecting an integration to the destination database.
 
-The integration must have access to the destination database.
+Run `npm run setup`. It asks the user:
 
-## Setup
+1. To create and securely enter the personal access token.
+2. Whether to create a new **Pebble Notes** database or use an existing one.
 
-1. Confirm Node.js 22+ and npm 10.9.2+ are installed.
-2. If `ntn` is unavailable, install it with
-   `curl -fsSL https://ntn.dev | bash`.
-3. Run `npm install`.
-4. Copy `.env.example` to `.env` and populate the required values without
-   exposing them in chat or logs.
-5. Run `npm test` and `npm run check`.
-6. Run `NOTION_KEYRING=0 ntn login` if the user is not already logged in.
-7. Run `NOTION_KEYRING=0 ntn workers deploy`.
-8. Push configuration with `NOTION_KEYRING=0 ntn workers env push`.
-9. Run `NOTION_KEYRING=0 ntn workers webhooks list --plain` and capture the
-   `createNotionPage` URL without publishing it.
-10. Send `fixtures/transcription-only.txt` as a multipart webhook test. Include
-   the optional bearer secret if configured.
-11. Inspect the latest run with `ntn workers runs list` and
-    `ntn workers runs logs <run-id>`.
-12. Verify that the test page exists in the destination database.
-13. Tell the user exactly where to paste the webhook URL in Pebble and remind
-    them to choose **Transcription** rather than audio-only delivery.
+Recommend creating a new database, but always present both choices. For an
+existing database, ask for its Notion link rather than a raw ID.
+
+The setup script runs checks, creates or verifies the database, deploys the
+Worker, stores its environment variables, sends a test transcript, verifies
+the resulting page, and prints the Pebble webhook URL. Do not recreate those
+steps manually unless the script reports a specific failure.
+
+If the workspace prevents the user from creating a personal access token with
+Notion API access, fall back to an internal integration. In that fallback only,
+ask the user to connect the integration to the destination database.
+
+`PEBBLE_WEBHOOK_SECRET` remains an optional advanced setting. Do not add it
+during the default setup because the generated Worker webhook URL already acts
+as a secret.
 
 ## Development
 
