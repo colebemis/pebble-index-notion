@@ -9,14 +9,21 @@ database.
 
 ## Set it up with a coding agent
 
-Open this repository in your coding agent and send:
+Open any coding agent and paste:
 
-> Set up this repository for me. Follow `AGENTS.md` and complete the entire
-> setup, including deployment and verification. Ask me only when you need
-> authorization or information you cannot retrieve. Never ask me to paste a
-> secret into chat.
+> Set up Pebble Index 01 so every transcript creates a new page in a Notion
+> database. Use
+> https://github.com/colebemis/pebble-index-notion as the template. Fetch the
+> repository yourself, read and follow its `AGENTS.md`, and complete the entire
+> setup, including dependencies, Notion configuration, deployment, a test
+> webhook, and verification that the test page was created. Ask me only when
+> you need authorization or information you cannot retrieve. Never ask me to
+> paste a secret into chat. When you finish, give me the webhook URL to paste
+> into Pebble and the exact remaining steps in the Pebble app.
 
-The agent should finish by giving you the webhook URL to paste into Pebble.
+You do not need to clone or open this repository first. The agent should create
+its own local working copy and finish by giving you the webhook URL to paste
+into Pebble.
 
 ## What it creates
 
