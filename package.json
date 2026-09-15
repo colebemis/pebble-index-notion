@@ -1,0 +1,23 @@
+{
+	"name": "pebble-index-notion",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"check": "tsc --noEmit",
+		"test": "tsx --test test/*.test.ts"
+	},
+	"engines": {
+		"node": ">=22.0.0",
+		"npm": ">=10.9.2"
+	},
+	"dependencies": {
+		"@notionhq/workers": ">=0.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.9.0",
+		"tsx": "^4.20.6",
+		"typescript": "^5.8.0"
+	}
+}
